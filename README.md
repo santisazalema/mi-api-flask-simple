@@ -1,76 +1,111 @@
 # Task API with Flask
 
-Simple REST API built with Flask to manage tasks. This project demonstrates basic backend development concepts such as routing, JSON responses, request validation, and CRUD-style API design.
+Simple REST API built with Flask to manage tasks. This project demonstrates backend development concepts such as routing, JSON responses, request validation, database persistence, and CRUD operations.
 
 ## Features
 
 - Get all tasks
+- Get one task by ID
 - Create a new task
+- Update an existing task
+- Delete a task
 - JSON request and response handling
 - Basic input validation
-- Lightweight and easy to run locally
+- SQLite database integration with SQLAlchemy
+- Automated tests with pytest
 
 ## Tech Stack
 
 - Python 3
 - Flask
+- Flask-SQLAlchemy
+- SQLite
+- pytest
 
 ## Project Structure
 
 ```bash
 mi-api-flask-simple/
-├── app.py
-├── requirements.txt
+├── app/
+│   ├── __init__.py
+│   ├── models.py
+│   └── routes.py
+├── tests/
+│   └── test_tasks.py
+├── .env.example
 ├── .gitignore
+├── requirements.txt
+├── run.py
 └── README.md
 ```
 
 ## Installation
 
-1. Clone the repository:
+Clone the repository:
 
 ```bash
 git clone https://github.com/santisazalema/mi-api-flask-simple.git
 cd mi-api-flask-simple
 ```
 
-2. Create and activate a virtual environment:
+Create and activate a virtual environment:
 
 ### Windows
+
 ```bash
 python -m venv venv
 venv\Scripts\activate
 ```
 
 ### Linux / macOS
+
 ```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-3. Install dependencies:
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
+## Environment Variables
+
+Create a `.env` file based on `.env.example`.
+
+Example:
+
+```env
+DATABASE_URL=sqlite:///tasks.db
+FLASK_ENV=development
+```
+
 ## Run the project
 
 ```bash
-python app.py
+python run.py
 ```
 
 The API will run locally at:
 
-```bash
+```text
 http://127.0.0.1:5000
+```
+
+## Run tests
+
+```bash
+python -m pytest
 ```
 
 ## Endpoints
 
 ### Get all tasks
 
-**GET** `/tareas`
+```http
+GET /tareas
+```
 
 Example:
 
@@ -78,71 +113,88 @@ Example:
 curl http://127.0.0.1:5000/tareas
 ```
 
-Response:
+### Get one task
 
-```json
-{
-  "tareas": [
-    {
-      "id": 1,
-      "titulo": "Aprender Flask",
-      "completada": false
-    },
-    {
-      "id": 2,
-      "titulo": "Subir API a GitHub",
-      "completada": false
-    }
-  ]
-}
+```http
+GET /tareas/<id>
+```
+
+Example:
+
+```bash
+curl http://127.0.0.1:5000/tareas/1
 ```
 
 ### Create a new task
 
-**POST** `/tareas`
+```http
+POST /tareas
+```
 
 Example:
 
 ```bash
 curl -X POST http://127.0.0.1:5000/tareas \
 -H "Content-Type: application/json" \
--d "{\"titulo\": \"Practicar APIs REST\"}"
+-d '{"titulo":"Practicar APIs REST"}'
 ```
 
-Response:
+### Update a task
+
+```http
+PUT /tareas/<id>
+```
+
+Example:
+
+```bash
+curl -X PUT http://127.0.0.1:5000/tareas/1 \
+-H "Content-Type: application/json" \
+-d '{"titulo":"Practicar Flask API","completada":true}'
+```
+
+### Delete a task
+
+```http
+DELETE /tareas/<id>
+```
+
+Example:
+
+```bash
+curl -X DELETE http://127.0.0.1:5000/tareas/1
+```
+
+## Example Response
 
 ```json
 {
-  "tarea": {
-    "id": 3,
-    "titulo": "Practicar APIs REST",
-    "completada": false
-  }
+  "id": 1,
+  "titulo": "Aprender Flask",
+  "completada": false
 }
 ```
 
 ## Current Limitations
 
-- Data is stored in memory
-- No database integration yet
 - No authentication
-- No automated tests yet
+- Basic validation only
+- No pagination or filtering
 
 ## Planned Improvements
 
-- Add full CRUD support
-- Add SQLite or PostgreSQL persistence
-- Organize routes into a cleaner structure
-- Add tests with pytest
-- Add error handling improvements
+- Add Swagger or API documentation
+- Add better validation
+- Add authentication
+- Add deployment configuration
 
 ## Author
 
 **Santiago I**  
 Junior Software Developer focused on backend, APIs, Python, and web development.
 
-GitHub: [https://github.com/santisazalema](https://github.com/santisazalema)
+GitHub: https://github.com/santisazalema
 
 ## License
 
-This project can be released under the MIT License.
+This project is licensed under the MIT License.
