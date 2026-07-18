@@ -81,7 +81,7 @@ DATABASE_URL=sqlite:///tasks.db
 FLASK_ENV=development
 ```
 
-## Run the project
+## Run the Project
 
 ```bash
 python run.py
@@ -93,7 +93,7 @@ The API will run locally at:
 http://127.0.0.1:5000
 ```
 
-## Run tests
+## Run Tests
 
 ```bash
 python -m pytest
@@ -193,7 +193,7 @@ curl -X DELETE http://127.0.0.1:5000/tareas/1
 **Santiago I**  
 Junior Software Developer focused on backend, APIs, Python, and web development.
 
-GitHub: https://github.com/santisazalema
+GitHub: [santisazalema](https://github.com/santisazalema)
 
 ## License
 
