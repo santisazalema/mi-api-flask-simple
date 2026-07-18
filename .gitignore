@@ -1,4 +1,12 @@
-# .gitignore
+# Entorno virtual
 venv/
+
+# Variables de entorno
+.env
+
+# Archivos compilados de Python
 __pycache__/
 *.pyc
+
+# Archivos locales de Flask / SQLite
+instance/
